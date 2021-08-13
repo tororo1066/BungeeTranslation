@@ -5,6 +5,7 @@ import bungeetranslation.bungeetranslation.BungeeTranslation.Companion.plugin
 import bungeetranslation.bungeetranslation.BungeeTranslation.Companion.urllist
 import net.md_5.bungee.api.chat.ClickEvent
 import net.md_5.bungee.api.chat.ComponentBuilder
+import net.md_5.bungee.api.chat.HoverEvent
 import net.md_5.bungee.api.connection.ProxiedPlayer
 import net.md_5.bungee.config.ConfigurationProvider
 import net.md_5.bungee.config.YamlConfiguration
@@ -46,13 +47,17 @@ object TranslateUtil {
                 return
             }
 
-            val comptext = ComponentBuilder("§6[翻訳] §a➜§f $contentstring").event(ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD,contentstring)).currentComponent
+            val comptext = ComponentBuilder("§6[翻訳] §a➜§f $contentstring").event(ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD,contentstring)).event(
+                HoverEvent(HoverEvent.Action.SHOW_TEXT, arrayOf(ComponentBuilder("§6Click to Copy!").currentComponent))
+            ).currentComponent
 
 
             this.sendMessage(comptext)
             return
         }catch (e : Exception){
-            e.printStackTrace()
+            this.sendmsg("§4翻訳に失敗しました")
+            this.sendmsg("§4設定しているURLが正しくない可能性があります")
+            return
         }
     }
 

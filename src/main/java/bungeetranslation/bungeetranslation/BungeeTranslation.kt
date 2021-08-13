@@ -21,9 +21,6 @@ class BungeeTranslation : Plugin() {
         if (!configFile.exists()){
             try {
                 configFile.createNewFile()
-                loaderConfiguration()
-                config.set("urllist", mutableListOf(""))
-                saveConfig()
             }catch (e : IOException){
                 e.printStackTrace()
             }
